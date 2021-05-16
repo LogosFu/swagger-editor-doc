@@ -1,0 +1,242 @@
+swagger: "2.0"
+info:
+  description: "租房委托服务,对外提供承房源出租委托的服务"
+  version: "1.0.0"
+  title: "Rental Delegation"
+  contact:
+    email: "shiwei.fu@thoughtworks.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "rental.tw.com"
+basePath: "/rental"
+tags:
+- name: "rental_requests"
+  description: "出租请求"
+- name: "rental_delegation"
+  description: "委托合约"
+schemes:
+- "https"
+- "http"
+paths:
+  /house/{h_id}/rental_requests/:
+    post:
+      tags:
+      - "rental_requests"
+      summary: "委托房屋出租请求"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "h_id"
+        in: "path"
+        description: "ID of house to rental"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          
+  /house/{h_id}/rental_requests/{r_id}/plan:
+    post:
+      tags:
+      - "rental_requests"
+      summary: "提供房屋委托方案"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "h_id"
+        in: "path"
+        description: "ID of house to rental"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "r_id"
+        in: "path"
+        description: "ID of rental RFP"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+  /rental_delegation/ :
+    post:
+      tags:
+      - "rental_delegation"
+      summary: "签订租房合同"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Pet object that needs to be added to the store"
+        required: true
+        schema:
+         $ref: "#/definitions/Plan" 
+      responses:
+        "200":
+          description: "OK"
+  /rental_delegation/{d_id}/cancel_requst :
+    post:
+      tags:
+      - "rental_delegation"
+      summary: "房源撤销请求"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "d_id"
+        in: "path"
+        description: "ID of rental_delegation"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+  /rental_delegation/{d_id}/cancelation :
+    post:
+      tags:
+      - "rental_delegation"
+      summary: "房源撤销确认"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "d_id"
+        in: "path"
+        description: "ID of rental_delegation"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+  /rental_delegation/{d_id}/rent :
+    post:
+      tags:
+      - "rental_delegation"
+      summary: "房源出租请求"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "d_id"
+        in: "path"
+        description: "ID of rental_delegation"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+  /rental_delegation/{d_id}/rent_comfirm :
+    post:
+      tags:
+      - "rental_delegation"
+      summary: "房源出租确认"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "d_id"
+        in: "path"
+        description: "ID of rental_delegation"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK" 
+  
+  /rental_delegation/{d_id}/payment :
+    post:
+      tags:
+      - "rental_delegation"
+      summary: "中介费支付请求"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "d_id"
+        in: "path"
+        description: "ID of rental_delegation"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+  /rental_delegation/{d_id}/payment_confirm :
+    post:
+      tags:
+      - "rental_delegation"
+      summary: "中介费支付确认"
+      description: ""
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "d_id"
+        in: "path"
+        description: "ID of rental_delegation"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK" 
+definitions:
+  Plan:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      house_id:
+        type: "integer"
+        format: "int64"
+      rental_request_id:
+        type: "integer"
+        format: "int32"
+    xml:
+      name: "Plan"
